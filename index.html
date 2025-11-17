@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KMHS - MIRROR</title>
+  <link rel="icon" href="https://www.kmhs.kr/logo.png" type="image/svg+xml" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @font-face {
+      font-family: "Pretendard Variable";
+      src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/variable/pretendardvariable-dynamic-subset.css");
+      font-display: swap;
+    }
+
+    body {
+      font-family: "Pretendard Variable", "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .distro-card {
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+
+    .distro-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(15, 118, 110, 0.1),
+        0 10px 10px -5px rgba(15, 118, 110, 0.04);
+    }
+
+    /* Custom Accent Color */
+    .accent-bg {
+      background-color: #179e9e;
+    }
+
+    .accent-bg-hover:hover {
+      background-color: #158c8c;
+    }
+
+    .accent-text {
+      color: #179e9e;
+    }
+  </style>
+
+  <meta name="color-scheme" content="light">
+  <meta content="대한민국 사용자들을 위한 빠르고 안정적인 미러. - MIRROR.KMHS.KR" name="description" />
+  <meta
+    content="KMHS, KMHS Mirror, 미러, Mirror, 대한민국 미러, Korea Mirror, Arch Linux, Debian, Proxmox, Termux, ROKFOSS, rokfoss, 록포스"
+    name="keywords" />
+  <meta content="KMHS" name="author" />
+  <meta name="theme-color" content="#179e9e">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="KMHS - MIRROR" />
+  <meta property="og:description" content="대한민국 사용자들을 위한 빠르고 안정적인 미러. - MIRROR.KMHS.KR" />
+  <meta property="og:url" content="https://MIRROR.KMHS.KR" />
+  <meta property="og:site_name" content="MIRROR.KMHS.KR" />
+  <meta property="og:locale" content="ko_KR" />
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="KMHS - MIRROR" />
+  <meta name="twitter:description" content="대한민국 사용자들을 위한 빠르고 안정적인 미러. - MIRROR.KMHS.KR" />
+</head>
+
+<body class="bg-gray-100 text-gray-800 flex flex-col min-h-screen">
+  <div class="container mx-auto p-4 sm:p-6 lg:p-8 flex flex-col min-h-screen">
+    <!-- 헤더 -->
+    <header class="w-full max-w-6xl mx-auto flex justify-between items-center py-4 mb-8">
+      <div class="flex items-center">
+        <img src="https://www.kmhs.kr/logo.png" alt="A85LABS Logo" class="h-12 mr-4" />
+        <div>
+          <h1 class="text-3xl sm:text-4xl font-black tracking-tighter text-gray-900">
+            KMHS Mirror
+          </h1>
+          <p class="text-gray-500 mt-1">
+          <p class="text-sm text-gray-500">학생들 및 안양권 사용자들을 위한 빠르고 안정적인 미러 서비스
+          </p>
+        </div>
+      </div>
+      <div>
+        <a href="https://github.com/sponsors/DevNergis" target="_blank" rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 accent-bg accent-bg-hover text-white px-6 py-2.5 rounded-lg transition-colors font-semibold shadow-sm">
+          <i data-lucide="heart" class="h-5 w-5"></i>
+          <span>기부하기</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- 스폰서 안내 -->
+    <!-- <div class="mb-8 bg-white border border-gray-200 rounded-lg p-6 shadow-md">
+      <div class="flex items-center justify-center">
+        <div class="text-center">
+          <p class="text-lg text-gray-500 mb-3">스폰서</p>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">PROJECT ELIV</h3>
+          <a href="https://eliv.kr" target="_blank" rel="noopener noreferrer">
+            <img src="https://eliv.speedycdn.net/eliv/Assets/Images/Logo/WHITE.svg" alt="PROJECT ELIV Logo"
+              class="h-16 mx-auto" />
+          </a>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- 배포판 목록 -->
+    <main class="flex-1">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">주요 배포판</h2>
+      <div id="distro-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <!-- 배포판 카드는 JavaScript로 동적 생성됩니다 -->
+      </div>
+      <p id="no-results" class="text-center text-gray-500 py-10 text-lg hidden">
+        검색 결과가 없습니다.
+      </p>
+    </main>
+
+    <!-- 서버 정보 -->
+    <section class="mt-12 bg-white border border-gray-200 p-6 rounded-lg shadow-md">
+      <h2 class="text-2xl font-bold mb-4 text-center text-gray-900">미러 서버 정보</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+        <div>
+          <h3 class="font-bold text-lg accent-text mb-2">
+            서버 위치
+          </h3>
+          <p class="text-gray-600">대한민국, 경기도, 안양시, 만안구, 삼덕로 49<br />(49 Samdeok-ro, Manan-gu, Anyang-si, Gyeonggi-do,
+            Korea)</p>
+        </div>
+        <div>
+          <h3 class="font-bold text-lg accent-text mb-2">
+            네트워크
+          </h3>
+          <p class="text-gray-600">Microsoft Azure + KT 대칭형 1Gbps</p>
+        </div>
+        <div>
+          <h3 class="font-bold text-lg accent-text mb-2">
+            문의
+          </h3>
+          <p class="text-gray-600"><a href="mailto:admin@kmhs.kr"
+              class="text-gray-600 hover:text-gray-900 underline">admin@kmhs.kr</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="w-full max-w-6xl mx-auto text-center py-6 mt-12">
+      <p class="text-sm text-gray-500">&copy; 2025 근명고등학교. All rights reserved.</p>
+      <p class="text-sm text-gray-500">&copy; 2025 신윤재. All rights reserved.</p>
+      <p class="text-sm text-gray-500">Powered by A85LABS</p>
+    </footer>
+  </div>
+
+  <script>
+    // 배포판 데이터
+    const distros = [
+      {
+        name: "Proxmox",
+        version: "Packages & ISO",
+        url: "/proxmox",
+        icon: "https://cdn.a85labs.net/LOGO/proxmox-logo-stacked-color.svg",
+        lastSync: "3시간",
+        proxy: false,
+      },
+      {
+        name: "PuTTY",
+        version: "Packages",
+        url: "/putty",
+        icon: "https://cdn.a85labs.net/LOGO/putty.ico",
+        lastSync: "3시간",
+        proxy: false,
+      },
+      {
+        name: "Termux",
+        version: "Packages",
+        url: "/termux",
+        icon: "https://cdn.a85labs.net/LOGO/termux.ico",
+        lastSync: "3시간",
+        proxy: false,
+      },
+    ];
+
+    const distroList = document.getElementById("distro-list");
+    const noResults = document.getElementById("no-results");
+
+    // 배포판 카드를 렌더링하는 함수
+    function renderDistros() {
+      distroList.innerHTML = "";
+
+      distros.forEach((distro) => {
+        const card = document.createElement("div");
+        card.className =
+          "distro-card bg-white border border-gray-200 rounded-lg p-5 shadow-md flex flex-col";
+
+        // Determine the sync status text based on the 'proxy' property
+        const syncStatusText = distro.proxy
+          ? `${distro.lastSync}에서 프록싱`
+          : `동기화 주기: ${distro.lastSync}`;
+
+        card.innerHTML = `
+                <div class="flex items-center mb-4">
+                    <img src="${distro.icon}" alt="${distro.name
+          } 로고" class="h-10 w-10 mr-4 object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                    <div class="h-10 w-10 mr-4 rounded-full bg-gray-200 flex items-center justify-center text-lg font-bold text-gray-800 hidden">${distro.name.charAt(
+            0
+          )}</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900">${distro.name}</h3>
+                        <p class="text-sm text-gray-500">${distro.version
+          }</p>
+                    </div>
+                </div>
+                <div class="mt-auto">
+                    <div class="text-xs text-gray-500 mb-3">
+                        <i data-lucide="clock" class="inline-block h-3 w-3 mr-1"></i>
+                        ${syncStatusText}
+                    </div>
+                    <a href="${distro.url
+          }" class="block w-full text-center accent-bg accent-bg-hover text-white py-2 rounded-lg transition-colors font-semibold">
+                        파일 보기
+                    </a>
+                </div>
+            `;
+        distroList.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    // --- 초기 실행 ---
+    lucide.createIcons();
+    renderDistros();
+  </script>
+</body>
+
+</html>
