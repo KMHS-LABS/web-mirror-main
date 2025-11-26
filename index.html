@@ -155,12 +155,28 @@
     // 배포판 데이터
     const distros = [
       {
+        name: "Debian",
+        version: "Packages",
+        url: "/debian/",
+        icon: "https://cdn.a85labs.net/LOGO/debian-logo-1024x576.png",
+        lastSync: "3시간",
+        lazy: true,
+      },
+      {
+        name: "Debian Security",
+        version: "Packages",
+        url: "/debian-security/",
+        icon: "https://cdn.a85labs.net/LOGO/debian-logo-1024x576.png",
+        lastSync: "3시간",
+        lazy: true,
+      },
+      {
         name: "Proxmox",
         version: "Packages & ISO",
         url: "/proxmox",
         icon: "https://cdn.a85labs.net/LOGO/proxmox-logo-stacked-color.svg",
         lastSync: "3시간",
-        proxy: false,
+        lazy: false,
       },
       {
         name: "PuTTY",
@@ -168,7 +184,7 @@
         url: "/putty",
         icon: "https://cdn.a85labs.net/LOGO/putty.ico",
         lastSync: "3시간",
-        proxy: false,
+        lazy: false,
       },
       {
         name: "Termux",
@@ -176,7 +192,7 @@
         url: "/termux",
         icon: "https://cdn.a85labs.net/LOGO/termux.ico",
         lastSync: "3시간",
-        proxy: false,
+        lazy: false,
       },
     ];
 
@@ -193,8 +209,8 @@
           "distro-card bg-white border border-gray-200 rounded-lg p-5 shadow-md flex flex-col";
 
         // Determine the sync status text based on the 'proxy' property
-        const syncStatusText = distro.proxy
-          ? `${distro.lastSync}에서 프록싱`
+        const syncStatusText = distro.lazy
+          ? `Lazy Sync`
           : `동기화 주기: ${distro.lastSync}`;
 
         card.innerHTML = `
